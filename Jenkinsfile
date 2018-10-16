@@ -17,7 +17,7 @@ pipeline {
 
         password(name: 'DEPLOY_CONSUMERKEY', defaultValue: 'SECRET', description: 'Enter the deployment consumer key if deploy is true')
 
-        file(name: "FILE", description: "Choose a file to upload")
+        file(name: "SECRET", description: "Choose a file to upload")
     }
     stages {
         stage('build') {
@@ -27,6 +27,8 @@ pipeline {
                 sh 'ant -version'
                 sh 'sfdx --version'
                 echo "Deploy Username: ${DEPLOY_USERNAME}"
+                echo "Secret: "
+                echo SECRET
             }
         }
         stage('test') {
@@ -38,7 +40,7 @@ pipeline {
             steps {
                 script {
                     // some block
-                    
+
                     /*
 
                     def reportExist= fileExists 'report'
