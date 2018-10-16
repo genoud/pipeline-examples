@@ -5,11 +5,20 @@ pipeline {
             args '-u root'
         } 
     }
-	node{
-		properties([parameters([string(name: 'TEST_PARAM', defaultValue: 'master')])])
-		echo "Test Param: ${TEST_PARAM}"
+	parameters {
+        
 
-	}
+        //text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+
+        booleanParam(name: 'DEPLOY', defaultValue: true, description: 'Automatique deploy')
+        string(name: 'DEPLOY_USERNAME', defaultValue: 'g.douanla.djatio@accenture.com', description: 'Enter the deploy username if deploy is true')
+
+        //choice(name: 'DEPLOY_USERNAME', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+
+        password(name: 'DEPLOY_CONSUMERKEY', defaultValue: 'SECRET', description: 'Enter the deployment consumer key if deploy is true')
+
+        file(name: "FILE", description: "Choose a file to upload")
+    }
     stages {
         stage('build') {
             steps {
@@ -17,6 +26,7 @@ pipeline {
                 sh 'java -version'
                 sh 'ant -version'
                 sh 'sfdx --version'
+                echo "Deploy Username: ${DEPLOY_USERNAME}"
             }
         }
         stage('test') {
