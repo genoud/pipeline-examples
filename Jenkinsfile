@@ -27,8 +27,7 @@ pipeline {
                 sh 'ant -version'
                 sh 'sfdx --version'
                 echo "Deploy Username: ${DEPLOY_USERNAME}"
-                echo "Secret: "
-                echo SECRET
+                echo "Secret: ${SECRET}"
             }
         }
         stage('test') {
